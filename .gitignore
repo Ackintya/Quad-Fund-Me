@@ -29,6 +29,18 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.secret
 
 # vercel
 .vercel
+
+node_modules
+.env
+coverage
+coverage.json
+typechain
+config.*
+
+#Hardhat files
+cache
+artifacts
