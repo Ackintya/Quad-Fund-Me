@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import Web3 from "web3";
 
 
+import Project from '../artifacts/contracts/Project.sol/Project.json'
+
 
 export default function EthTipJar(props) {
   const [hasEthAccount, setHasEthAccount] = useState(false)
-  const [ethAmount, setEthAmount] = useState("0.01")
+  const [ethAmount, setEthAmount] = useState("0.1")
   const [isValidKeyPress, setIsValidKeyPress] = useState(true)
   const [displayError, setDisplayError] = useState(false)
-
   const web3 = new Web3(Web3.givenProvider)
  
   useEffect(() => {
@@ -36,7 +37,13 @@ export default function EthTipJar(props) {
     e.preventDefault()
     const accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
     const wei = web3.utils.toWei(ethAmount, "ether")
-    if (accounts.length > 0) {
+    const contract = new web3.eth.Contract(Project.abi,props.acc)
+    const transaction = await contract.methods.contribute().send({
+      from: accounts[0],
+      value:  web3.utils.toHex(wei)
+  });
+  await web3.eth.getTransactionReceipt(transaction.transactionHash);
+   /* if (accounts.length > 0) {
       window.ethereum.request({
         method: "eth_sendTransaction",
         params: [{
@@ -46,6 +53,7 @@ export default function EthTipJar(props) {
         }]
       })
     }
+    */
     console.log(ethAmount)
   }
 

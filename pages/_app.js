@@ -19,7 +19,12 @@ function MyApp({ Component, pageProps }) {
           </Link>
           <Link href="/my-assets">
             <a className="mr-6 text-pink-500">
-              My Projects
+              My Pools
+            </a>
+          </Link>
+          <Link href="/create-pool">
+            <a className="mr-6 text-pink-500">
+              Create Pool
             </a>
           </Link>
           <Link href="/creator-dashboard">

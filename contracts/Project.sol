@@ -8,16 +8,14 @@ pragma solidity >=0.4.22 <0.9.0;
  */
 contract Project {
 
-    enum State {initialized, ongoing, completed}
-
     address payable public owner;                                                                  //to store owner, here = the actual Project owner
     string public name;
     string public image;
     string public description;                                                              //unused variable, may find a use later
-    State public currentState;
     uint256 public currentBal;
     mapping(address => uint) public funds;
     uint sqrtFundsSum;
+    uint public sqsum;
     address[] uniqueContributors;
     
     //modifier to allow access only to the owner
@@ -26,11 +24,7 @@ contract Project {
         _;
     }
     
-    //modifier to allow the function to proceed only if contract is in intended state
-    modifier isState(State reqState) {
-        require(currentState == reqState, "Contract not in required state");
-        _;
-    }
+   
     
     //initializes the name of the project for identifying or mapping other project metadata
     //to any database(eg. IPFS), the projectOwner to payout to, and the currentState to 
@@ -40,12 +34,12 @@ contract Project {
         description=des;
         owner = projectOwner;
         name=names;
-        currentState = State.initialized;
     }
     
     //function to calculate square root of x
     function sqrt(uint x) internal pure returns (uint){
-       uint n = x / 2;
+       require(x>0,"Imaginary number");
+        uint n = x / 2;
        uint lstX = 0;
        while (n != lstX){
            lstX = n;
@@ -65,42 +59,35 @@ contract Project {
         }
     }
     
-    //function to change the currentState variable of the contract based on comparing block timestamp 
-    //to constant raiseBy and startRaisingFrom to meet isState modifier requirements. Currently only
-    //the owner can change the phase but chainlink keeper can be implemented later to automate the 
-    //change state process.
-  function changeState() public isOwner {
-    currentState=State.completed;
-    }
-    
     //function to return the square of the sum of the square root of individual contributions when 
     //requested by the Qfunding contract
     function getSquaredSqrtFundsSum() public returns (uint){
         for(uint i = 0; i<uniqueContributors.length; i++){
             sqrtFundsSum += sqrt(funds[uniqueContributors[i]]);
         }
-        return pow(sqrtFundsSum, 2);
+        return sqrtFundsSum*sqrtFundsSum;
     }
     
     //function to recieve contributions from people and recording it into the mapping funds. the mapping
     //is required to reference and check if a address has already contributed some amount to prevent
     //user from breaking his contribution into small amounts to cheat quadratic funding. 
-    function contribute() public payable isState(State.ongoing) {
+    function contribute() public payable  {
         uint amountRecieved = msg.value;
         if(funds[msg.sender] == 0){
             uniqueContributors.push(msg.sender);
             funds[msg.sender] = amountRecieved;
+            sqsum+=sqrt(amountRecieved);
         }else {
             funds[msg.sender] = funds[msg.sender] + amountRecieved;
+            sqsum+=sqrt(funds[msg.sender])-sqrt(funds[msg.sender]-amountRecieved);
         }
         //currentBal variable is redundant as the same can achieve by this.balance
-        currentBal += amountRecieved;
-        
+        currentBal += amountRecieved;       
     }
     
     //function to payout the funds collected in this project contract to the projectOwner
     //TODO check with the access specifier
-     function payout() isOwner public payable isState(State.completed) {
+     function payout() public payable {
         uint amount = address(this).balance;
          owner.transfer(amount);
      }   

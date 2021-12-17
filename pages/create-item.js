@@ -7,15 +7,16 @@ import Web3Modal from 'web3modal'
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import{
-  projectaddress, marketaddress
+  marketaddress, 
 } from '../config'
 
 import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
-import Project from '../artifacts/contracts/Project.sol/Project.json'
+import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
+
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
-  const [formInput, updateFormInput] = useState({ owner: '', name: '', description: '' })
+  const [formInput, updateFormInput] = useState({poolID:'', name: '', description: '' })
   const router = useRouter()
 
   async function onChange(e) {
@@ -33,33 +34,36 @@ export default function CreateItem() {
       console.log('Error uploading file: ', error)
     }  
   }
+
   async function createMarket() {
-    const { owner, description, name } = formInput
-    if (!owner || !description || !fileUrl || !name) return
+    const { poolID,description, name } = formInput
+    if (!poolID||!description || !fileUrl || !name) return
     /* first, upload to IPFS */
     const data = JSON.stringify({
-      owner, description,name, image:fileUrl
+      poolID,description,name, image:fileUrl
     })
     console.log(data)
     try {
       const added = await client.add(data)
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      createproject(owner,description,name,fileUrl)
+      createproject(poolID,description,name,fileUrl)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }  
   }
 
-  async function createproject(owner,description,name,fileUrl) {
+  async function createproject(poolID,description,name,fileUrl) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)    
     const signer = provider.getSigner()
-
+    const user= await signer.getAddress()
     /* next, create the item */
-    let contract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    let transaction = await contract.createProject(owner,name,fileUrl,description)
+    let marketcontract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
+    const data=await marketcontract.listPools()
+    let contract = new ethers.Contract(data[poolID-1], Pool.abi, signer)
+    let transaction = await contract.createProject(name,fileUrl,description)
     let tx = await transaction.wait()
     console.log(tx)
     router.push('/')
@@ -68,21 +72,23 @@ export default function CreateItem() {
   return (
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
-        <input 
-          placeholder="Project Name"
-          className="mt-8 border rounded p-4"
-          onChange={e => updateFormInput({ ...formInput, owner: e.target.value })}
+      <input
+          placeholder="Pool ID"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, poolID: e.target.value })}
         />
+      <input
+          placeholder="Project Name"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
+        />
+        
         <textarea
           placeholder="Project Description"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
         />
-        <input
-          placeholder="Project id"
-          className="mt-2 border rounded p-4"
-          onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
-        />
+        
         <input
           type="file"
           name="Asset"

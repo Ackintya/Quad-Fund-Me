@@ -29,7 +29,6 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-.secret
 
 # vercel
 .vercel
@@ -44,3 +43,6 @@ config.*
 #Hardhat files
 cache
 artifacts
+.npmignore
+.secret
+.solhintignore
