@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
@@ -17,7 +17,9 @@ export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({Seed:'', name: '', Owner: '' })
   const router = useRouter()
-
+  useEffect(() => {
+    document.title="Create Pool"
+  }, [])
   async function CreatePool() {
     const { Seed,name,Owner } = formInput
     if (!Seed||!Owner || !name) return

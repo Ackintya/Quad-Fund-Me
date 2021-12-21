@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
-import EthTipJar from "../Components/sendtransaction"
-
+import Modal from './useModal'
 import{
   marketaddress
       }
@@ -19,6 +18,8 @@ export default function Home() {
   
   useEffect(() => {
     loadPools()
+    document.title="Menu"
+
   }, [])
 
   async function loadPools() {
@@ -42,14 +43,14 @@ export default function Home() {
       const imag=await projectContract.image()
       const desc= await projectContract.description()
       const bal = await provider.getBalance(j);
-      const sqsum=await projectContract.sqsum();
+  //    const sqsum=await projectContract.sqsum();
       const item = {
         owner:owner,
         name:name,
         image:imag,
         description:desc,
         address:j,
-        sqrsum:sqsum.toString(),
+   //     sqrsum:sqsum.toString(),
         balance:ethers.utils.formatEther( bal ),
       }
 
@@ -74,16 +75,18 @@ export default function Home() {
               pools.map((pool, i) => (
               pool.projects.map((projs,j)=>(
               <div key={j} className="border shadow  justify-center rounded-xl overflow-hidden">
-                <p style={{ height: '30px' }} className="flex text-l bg-black text-white font-semibold">&nbsp; Pool: {pool.poolName} &nbsp;&nbsp;&nbsp;sqsum: {projs.sqrsum}&nbsp;Funds: {projs.balance}</p>
+                <p style={{ height: '30px' }} className="flex text-l justify-center bg-black text-white font-semibold">&nbsp; Pool: {pool.poolName}</p>
                 <img style={{height:'210px'}}  src={projs.image} />
-                <p style={{ height: '60px' }} className="flex justify-center text-2xl font-semibold">{projs.name}</p>
+                <p style={{ height: '40px' }} className="flex justify-center pt-1 text-xl font-semibold">{projs.name}</p>
                 <div className="p-4">
                   <div style={{ height: '70px', overflow: 'hidden' }}>
                     <p className="text-gray-400">{projs.description}</p>
-                  </div>
+                    </div>
                 </div>
-                <div className="p-4 bg-black">
-                  <EthTipJar  acc={projs.address}/>
+                <div className="p-4 bg-black text-white">
+                <p style={{ height: '40px' }} className="flex text-l justify-center bg-black text-white font-semibold"> Funds Collected: {projs.balance}</p>
+
+                <Modal className="justify-center" project={projs} />
                 </div>
               </div>
              ))))

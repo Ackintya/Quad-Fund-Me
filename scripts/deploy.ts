@@ -8,7 +8,6 @@ import { ethers } from "hardhat";
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
-  //
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
   // await hre.run('compile');
@@ -27,12 +26,14 @@ async function main() {
   console.log(pools[0]);
 
   const pool=Pool.attach(pools[0]);
-/*
+
+  /*
 const transactionHash = await owner.sendTransaction({
   to: pools[0],
   value: ethers.utils.parseEther("100.0"), // Sends exactly 1.0 ether
 });
 */
+
   await pool.createProject("Google Images",'https://imgr.search.brave.com/eBzLoRzDLEXJMGknWlnYhamybou0fCiY07KP6PLKu3U/fit/1200/1080/ce/1/aHR0cDovL3d3dy5w/aXhlbHN0YWxrLm5l/dC93cC1jb250ZW50/L3VwbG9hZHMvMjAx/Ni8wNC9Hb29nbGUt/V2FsbHBhcGVyLUlt/YWdlcy1IRC1kb3du/bG9hZC5qcGc','Google Images');
   await pool.createProject("Google Images",'https://imgr.search.brave.com/eBzLoRzDLEXJMGknWlnYhamybou0fCiY07KP6PLKu3U/fit/1200/1080/ce/1/aHR0cDovL3d3dy5w/aXhlbHN0YWxrLm5l/dC93cC1jb250ZW50/L3VwbG9hZHMvMjAx/Ni8wNC9Hb29nbGUt/V2FsbHBhcGVyLUlt/YWdlcy1IRC1kb3du/bG9hZC5qcGc','Google Images');
   await pool.createProject("Google Images",'https://imgr.search.brave.com/eBzLoRzDLEXJMGknWlnYhamybou0fCiY07KP6PLKu3U/fit/1200/1080/ce/1/aHR0cDovL3d3dy5w/aXhlbHN0YWxrLm5l/dC93cC1jb250ZW50/L3VwbG9hZHMvMjAx/Ni8wNC9Hb29nbGUt/V2FsbHBhcGVyLUlt/YWdlcy1IRC1kb3du/bG9hZC5qcGc','Google Images');

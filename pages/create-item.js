@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
@@ -18,7 +18,9 @@ export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({poolID:'', name: '', description: '' })
   const router = useRouter()
-
+  useEffect(() => {
+    document.title="Create Project"
+  }, [])
   async function onChange(e) {
     const file = e.target.files[0]
     try {

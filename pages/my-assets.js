@@ -19,6 +19,7 @@ export default function Home() {
   
   useEffect(() => {
     loadPools()
+    document.title="My Pools"
   }, [])
   async function releasefunds(address) {
     const web3Modal = new Web3Modal()

@@ -14,9 +14,10 @@ contract Pool {
     uint public poolValue;
     address public owner;
     string public name;
+    enum status{active,released}
+    status public currentStatus=status.active;
     mapping(address => uint) sponsorFunds;
-      uint[] matchRatio;
-      address payable ownerproj;
+    address payable ownerproj;
     //modifier to allow access only to the owner
     modifier isOwner() {
         require(msg.sender == owner, "Cannot allow access other than owner");
@@ -84,7 +85,7 @@ contract Pool {
    //again, calculates the match ratio and calls the payout function in pool contract with the required 
    //arguments. Since this computation requires very much gas this can be computed off chain using
    //chainlink external adapters which can be later implemented.
-   function calandPayoutMatch() public payable 
+   function calandPayoutMatch() public payable isOwner
    {
     uint256 sumSquaredSqrtFundsSum;
     uint256 aas;
@@ -118,8 +119,7 @@ contract Pool {
            {
              break;
            }
-           
     }
+currentStatus=status.released;
   }
   }
-      
