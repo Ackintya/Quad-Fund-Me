@@ -1,6 +1,8 @@
 import "@nomiclabs/hardhat-waffle";
-const fs = require('fs')
-const privateKey = fs.readFileSync(".secret").toString().trim() || "01234567890123456789"
+require('dotenv').config
+import fs from 'fs';
+
+const privateKey = process.env.private_key|| "01234567890123456789"
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -9,7 +11,7 @@ module.exports = {
       chainId: 1337
     },
     mumbai: {
-      url: "https://rpc-mumbai.matic.today",
+      url: "https://ropsten.infura.io/v3/"+ process.env.infura_key,
       accounts: [privateKey]
     }
   },
