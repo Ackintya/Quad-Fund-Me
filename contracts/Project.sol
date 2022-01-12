@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.4.22 <0.9.0;
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Storage
  * @dev Store & retrieve value in a variable
  */
-contract Project {
+contract Project is Ownable {
 
-    address payable public owner;                                                                  //to store owner, here = the actual Project owner
+    address payable public projectOwner;                                                                  //to store owner, here = the actual Project owner
     string public name;
     string public image;
     string public description;                                                              //unused variable, may find a use later
@@ -19,23 +20,27 @@ contract Project {
     address[] uniqueContributors;
     
     //modifier to allow access only to the owner
-    modifier isOwner() {
-        require(msg.sender == owner, "Cannot allow access other than owner");
-        _;
-    }
-    
-   
+    //modifier isOwner() {
+      //  require(msg.sender == owner, "Cannot allow access other than owner");
+        //_;
+   // }
     
     //initializes the name of the project for identifying or mapping other project metadata
     //to any database(eg. IPFS), the projectOwner to payout to, and the currentState to 
     //initialized
-    constructor(address payable projectOwner, string memory names, string memory imag, string memory des) public {
+    constructor(address payable Owner, string memory names, string memory imag, string memory des) public {
         image=imag;
         description=des;
-        owner = projectOwner;
+        projectOwner = Owner;
         name=names;
     }
-    
+
+    function getProjectBalance() public view returns(uint)
+  {
+    return address(this).balance;
+  }
+
+
     //function to calculate square root of x
     function sqrt(uint x) internal pure returns (uint){
        require(x>0,"Imaginary number");
@@ -86,9 +91,8 @@ contract Project {
     }
     
     //function to payout the funds collected in this project contract to the projectOwner
-    //TODO check with the access specifier
-     function payout() public payable {
+     function payout() public payable onlyOwner {
         uint amount = address(this).balance;
-         owner.transfer(amount);
+        projectOwner.transfer(amount);
      }   
 }

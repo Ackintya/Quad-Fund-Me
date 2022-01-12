@@ -13,21 +13,42 @@ import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
 export default function Home() {
   
   const [pools,setPools]= useState([])
-  const [projects, setProjects] = useState([])
+  //const [projects, setProjects] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
+  const [chainid,setChainid]= useState([])
+  /*const chainId = await ethereum.request({ method: 'eth_chainId' });
+  handleChainChanged(chainId);
   
+  ethereum.on('chainChanged', handleChainChanged);
+  
+  function handleChainChanged(_chainId) {
+    // We recommend reloading the page, unless you must do otherwise
+    window.location.reload();
+  }
+  */
   useEffect(() => {
     loadPools()
     document.title="Menu"
-
+    console.log(chainid)
+    handlenetworkchange()
   }, [])
 
+  async function handlenetworkchange() {
+    window.ethereum.on("chainChanged", async function() {
+      // Time to reload your interface with accounts[0]!
+      //accounts = await web3.eth.getAccounts();
+      // accounts = await web3.eth.getAccounts();
+     // console.log(accounts);
+    });
+  }
   async function loadPools() {
     /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider()
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-   
+    setChainid(window.ethereum.networkVersion || 1337);
+    console.log(chainid)
+    
    const data=await marketContract.listPools()
     const items = await Promise.all(data.map(async i => {
       
@@ -65,7 +86,9 @@ export default function Home() {
     setPools(items)
     setLoadingState('loaded') 
   }
-  
+
+  if(chainid!=1337) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten</h1>)
+
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)
   return (
     <div className="flex justify-center">

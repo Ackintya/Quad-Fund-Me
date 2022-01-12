@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.22 <0.9.0;
 import "./Project.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Pool {
+contract Pool is Ownable {
 
     event Create(address creator,string name);
     //enum State {initialized, ongoing, completed}
@@ -12,17 +13,13 @@ contract Pool {
     Project [] public projectsListed;
     //State public currentState;
     uint public poolValue;
-    address public owner;
+    address public poolowner;
     string public name;
     enum status{active,released}
     status public currentStatus=status.active;
     mapping(address => uint) sponsorFunds;
     address payable ownerproj;
-    //modifier to allow access only to the owner
-    modifier isOwner() {
-        require(msg.sender == owner, "Cannot allow access other than owner");
-        _;
-    }
+    
     
     //modifier to allow the function to proceed only if contract is in intended state
     //modifier isState(State reqState) {
@@ -32,7 +29,7 @@ contract Pool {
     
     //initializes the owner of the contract and currentState of the contract to initialized.
     constructor (uint idnumber,string memory nam,address creator) public {
-        owner = creator;
+        poolowner = creator;
         id=idnumber;
         name=nam;
        // currentState = State.initialized;
@@ -54,7 +51,13 @@ contract Pool {
     //    currentState=State.completed;
     //    }
   //  }
- 
+    
+  function getContractBalance() public view returns(uint)
+  {
+    return address(this).balance;
+
+  }
+
     //function to recieve funds from sponsors to make up the pool
     function recieveToPool () public payable {
             sponsorFunds[msg.sender] = sponsorFunds[msg.sender] + msg.value;
@@ -66,12 +69,13 @@ contract Pool {
         projectOwner.transfer(matchRatio*poolValue);
     }
 
-    function createProject(string memory name, string memory imag, string memory des) public  {
+    function createProject(string memory name, string memory imag, string memory des) public returns (Project)  {
 
        Project newProject = new Project(payable(msg.sender), name, imag, des);
        projectcount++;
        emit Create(msg.sender,name);
        projectsListed.push(newProject);
+       return newProject;
     }
 
     function listprojects() public view returns (Project[] memory)
@@ -85,7 +89,7 @@ contract Pool {
    //again, calculates the match ratio and calls the payout function in pool contract with the required 
    //arguments. Since this computation requires very much gas this can be computed off chain using
    //chainlink external adapters which can be later implemented.
-   function calandPayoutMatch() public payable isOwner
+   function calandPayoutMatch() public payable onlyOwner
    {
     uint256 sumSquaredSqrtFundsSum;
     uint256 aas;
@@ -109,11 +113,12 @@ contract Pool {
            //payoutPoolMatch(aas, projectsListed[j].owner());
           // projectsListed[i].owner().transfer(1);
             if(aas*poolValue/sumSquaredSqrtFundsSum<=address(this).balance){
-          (projectsListed[j].owner()).transfer(aas*poolValue/sumSquaredSqrtFundsSum);
+          (projectsListed[j].projectOwner()).transfer(aas*poolValue/sumSquaredSqrtFundsSum);
            }
            else if(address(this).balance!=0)
            {
-            (projectsListed[j].owner()).transfer(address(this).balance);
+            (projectsListed[j].projectOwner()).transfer(address(this).balance);
+            //projectsListed[j].payout();
            }
            else
            {
