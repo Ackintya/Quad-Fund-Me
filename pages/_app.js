@@ -28,11 +28,7 @@ function MyApp({ Component, pageProps }) {
               Create Pool
             </a>
           </Link>
-          <Link href="/creator-dashboard">
-            <a className="mr-6 text-pink-500">
-              Owner Dashboard
-            </a>
-          </Link>
+         
         </div>
       </nav>
       <Component {...pageProps} />

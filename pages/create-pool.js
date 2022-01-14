@@ -63,7 +63,7 @@ export default function CreateItem() {
     <div className="flex justify-center">
       <div className="w-1/2 flex flex-col pb-12">
       <input
-          placeholder="Pool Seed"
+          placeholder="Pool Seed Amount"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, Seed: e.target.value })}
         />

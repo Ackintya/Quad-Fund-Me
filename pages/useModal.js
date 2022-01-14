@@ -11,7 +11,7 @@ export default function Modal(props) {
         type="button"
         onClick={() => setShowModal(true)}
       >
-          See more
+          See more and Contribute
     </button>
       {showModal ? (
         <>
