@@ -10,8 +10,8 @@ import{
   marketaddress, 
 } from '../config'
 
-import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
-import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
+import Qfunding from "./artifacts/contracts/Qfunding.sol/Qfunding.json"
+import Pool from './artifacts/contracts/Pool.sol/Pool.json'
 
 
 export default function CreateItem() {
