@@ -42,6 +42,4 @@ typechain
 
 #Hardhat files
 cache
-.npmignore
 .secret
-.solhintignore
