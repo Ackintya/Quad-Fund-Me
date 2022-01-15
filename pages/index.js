@@ -6,9 +6,9 @@ import{
       }
 from '../config'
 
-import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
 import Project from '../artifacts/contracts/Project.sol/Project.json'
 import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
+import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
 
 export default function Home() {
   
