@@ -1,0 +1,3 @@
+export const marketaddress="0xE100BaDf0ccdb7d87B56045186c4F7Fd1963Ab04"
+//export const projectaddress="0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+//export const pooladdress="0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
