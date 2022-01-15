@@ -92,7 +92,7 @@ export default function Home() {
     setLoadingState('loaded') 
   }
 
-  if(chainid!=1337) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten</h1>)
+  if(chainid!=3) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten</h1>)
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)
   return (
     <div className="flex justify-center">
