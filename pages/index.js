@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="flex border shadow-2xl justify-center rounded-2xl" >
                 <p className="flex text-2xl items-center justify-center bg-gray-500 text-white font-semibold py-5 ">{pool.poolName}
                 </p>
-                
+
                 <div key={i} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
                 {pool.projects.map((projs,j)=>(
                 <div key={j} className="border shadow-2xl items-center justify-center rounded-xl">
