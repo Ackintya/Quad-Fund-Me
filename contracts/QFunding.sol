@@ -5,7 +5,7 @@
     import "./Pool.sol";
     import "@openzeppelin/contracts/access/Ownable.sol";
 
-    contract QFunding  is Ownable {
+    contract Qfunding  is Ownable {
 
     event Create(address creator,string name);
     address public Owner;
