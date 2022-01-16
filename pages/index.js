@@ -5,6 +5,7 @@ import{
   marketaddress
       }
 from '../config'
+import Web3Modal from "web3modal"
 
 import Project from '../artifacts/contracts/Project.sol/Project.json'
 import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
@@ -34,7 +35,9 @@ export default function Home() {
  
   async function loadPools() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
     setChainid(window.ethereum.networkVersion || 3);

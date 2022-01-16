@@ -36,7 +36,7 @@ export default function Home() {
   }
   async function loadPools() {
     const web3Modal = new Web3Modal({
-        network: "mainnet",
+        network: "ropsten",
         cacheProvider: true,
       })
       const connection = await web3Modal.connect()
@@ -52,7 +52,7 @@ export default function Home() {
       
       const poolContract= new ethers.Contract(i,Pool.abi,signer)
       const poolName=await poolContract.name()      
-      const poolOwner=await poolContract.owner()
+      const poolOwner=await poolContract.poolowner()
       const balance = await provider.getBalance(i);
       const count = await poolContract.projectcount()
       const poolid=await poolContract.id()
