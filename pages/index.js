@@ -37,7 +37,7 @@ export default function Home() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    setChainid(window.ethereum.networkVersion);
+    setChainid(window.ethereum.networkVersion || 3);
     console.log(chainid)
     console.log(marketaddress)
 
@@ -84,7 +84,7 @@ export default function Home() {
     setLoadingState('loaded') 
   }
 
-  if(chainid!=3) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten</h1>)
+  if(chainid!=3) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten (reload)</h1>)
 
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)
   return (
