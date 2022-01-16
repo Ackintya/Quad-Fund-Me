@@ -1,0 +1,2 @@
+deployed_address="0xE100BaDf0ccdb7d87B56045186c4F7Fd1963Ab04"
+network="ropsten"

@@ -21,14 +21,14 @@ export default function Home() {
     loadPools()
     document.title="My Pools"
   }, [])
-  async function releasefunds(address) {
+  async function releasefunds(id) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
    // const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    const contract = new ethers.Contract(address, Pool.abi, signer)
-    const transaction = await contract.calandPayoutMatch({
+    const market = new ethers.Contract(address, Qfunding.abi, signer)
+    const transaction = await market.payoutpools(id,{
       gasLimit: 3000000
   })
     await transaction.wait()
@@ -86,7 +86,7 @@ export default function Home() {
                 <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Projects: {pool.projectcount}  </p>
 
                 <div className="p-4 bg-black">
-                  <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => releasefunds(pool.address)}>Release</button>
+                  <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => releasefunds(i)}>Release</button>
                 </div>
               </div>
              ))
