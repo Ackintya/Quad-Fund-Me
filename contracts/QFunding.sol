@@ -1,13 +1,11 @@
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.22 <0.9.0;
+    pragma solidity 0.8.4;
 
     import "./Project.sol";
     import "./Pool.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
 
-    contract Qfunding  is Ownable {
+    contract Qfunding {
 
-    event Create(address creator,string name);
     address public Owner;
     uint public poolcount;
     Pool sponsorPool;
@@ -33,7 +31,6 @@
        sponsorPool = new Pool(poolcount,name,creator);
        listedpools.push(sponsorPool);
        sponsorPool.recieveToPool{value:msg.value}();
-       emit Create(creator,name);
        return sponsorPool;
    }
 
@@ -43,7 +40,7 @@
     }
 
 //initating payout for the pools from the market
-    function payoutpools(uint poolsID) public onlyOwner
+    function payoutpools(uint poolsID) public 
     {   
         require(poolsID<poolcount,"Pool does not exist");
         listedpools[poolsID].calandPayoutMatch();

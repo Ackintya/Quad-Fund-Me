@@ -12,15 +12,14 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Qfund = await ethers.getContractFactory("QFunding");
-  const Pool= await ethers.getContractFactory("Pool");
-  const Project= await ethers.getContractFactory("Project");
+  const Qfund = await ethers.getContractFactory("Qfunding");
+  
 
   const market = await Qfund.deploy();
   await market.deployed();
   //await market.createPool("water",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("10")});
-  await market.createPool("Healthcare",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.5")});
-  await market.createPool("Metaverse",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.6")});
+  await market.createPool("Healthcare",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.1")});
+  await market.createPool("Metaverse",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.15")});
   //const pools=await market.listPools();
   //console.log(pools[0]);
 
