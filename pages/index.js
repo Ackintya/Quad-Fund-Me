@@ -29,19 +29,19 @@ export default function Home() {
   useEffect(() => {
     loadPools()
     document.title="Menu"
-    console.log(chainid)
   }, [])
 
  
   async function loadPools() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider()
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    setChainid(window.ethereum.networkVersion || 3);
+    setChainid(window.ethereum.networkVersion);
     console.log(chainid)
-    
-   const data=await marketContract.listPools()
+    console.log(marketaddress)
+
+    const data=await marketContract.listPools()
     const items = await Promise.all(data.map(async i => {
       
       const poolContract= new ethers.Contract(i,Pool.abi,signer)
