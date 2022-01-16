@@ -1,4 +1,4 @@
-import QFundingBuild from './contracts/QFunding.json'
+import QFundingBuild from './contracts/Qfunding.json'
 const Web3 = require('web3')
 let selectedAccount;
 
@@ -24,7 +24,7 @@ export const init = async() => {
             console.log(`Selected account changed to ${selectedAccount}`);
           });
           }
-          const providerUrl = process.env.PROVIDER_URL || 'http://localhost:8545';
+          const providerUrl = "https://ropsten.infura.io/v3/930bd58ef1d0469dbf105654e921eacb";
           const web3 = new Web3(providerUrl);
       
           const networkId = await web3.eth.net.getId();

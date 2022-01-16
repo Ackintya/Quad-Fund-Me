@@ -21,7 +21,7 @@ expect(ethers.utils.formatEther(await project.getProjectBalance())).to.equal("0.
 
 it("Should payout to all the projects", async function () {  
 
- const Qfund = await ethers.getContractFactory("QFunding");
+ const Qfund = await ethers.getContractFactory("Qfunding");
   const Pool= await ethers.getContractFactory("Pool");
   const Project= await ethers.getContractFactory("Project");
   let [owner,add1,add2] = await ethers.getSigners()

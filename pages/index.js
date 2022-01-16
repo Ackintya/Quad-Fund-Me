@@ -30,23 +30,15 @@ export default function Home() {
     loadPools()
     document.title="Menu"
     console.log(chainid)
-    handlenetworkchange()
   }, [])
 
-  async function handlenetworkchange() {
-    window.ethereum.on("chainChanged", async function() {
-      // Time to reload your interface with accounts[0]!
-      //accounts = await web3.eth.getAccounts();
-      // accounts = await web3.eth.getAccounts();
-     // console.log(accounts);
-    });
-  }
+ 
   async function loadPools() {
     /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider()
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    setChainid(window.ethereum.networkVersion || 1337);
+    setChainid(window.ethereum.networkVersion || 3);
     console.log(chainid)
     
    const data=await marketContract.listPools()
@@ -93,6 +85,7 @@ export default function Home() {
   }
 
   if(chainid!=3) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten</h1>)
+
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)
   return (
     <div className="flex justify-center">
