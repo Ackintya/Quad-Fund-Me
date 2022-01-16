@@ -12,7 +12,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Qfund = await ethers.getContractFactory("QFunding");
+  const Qfund = await ethers.getContractFactory("Qfunding");
   const Pool= await ethers.getContractFactory("Pool");
   const Project= await ethers.getContractFactory("Project");
 
