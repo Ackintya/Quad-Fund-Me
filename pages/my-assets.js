@@ -26,9 +26,8 @@ export default function Home() {
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
-   // const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    const market = new ethers.Contract(address, Qfunding.abi, signer)
-    const transaction = await market.payoutpools(id,{
+    const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
+    const transaction = await marketContract.payoutpools(id,{
       gasLimit: 3000000
   })
     await transaction.wait()
