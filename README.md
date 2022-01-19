@@ -61,7 +61,7 @@ Project.sol: It is the implementation of project structure. It has name,owner,im
 3. `npx hardhat test` to perform unit tests
    NOTE: please comment out Ropsten network block in `hardhat.config.js` before test.
 4. `npx hardhat node` to start the local test node
-5. `npx hardhat run scripts/deploy.js --network localhost` to deploy the contract to the test network
+5. `npx hardhat run scripts/deploy.ts --network localhost` to deploy the contract to the test network
 6. `npm start` to start React server populated at http://localhost:3000/
 
 ## Final

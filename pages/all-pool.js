@@ -8,7 +8,6 @@ import{
 from '../config'
 
 import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
-import Project from '../artifacts/contracts/Project.sol/Project.json'
 import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
 
 export default function Home() {
@@ -18,21 +17,10 @@ export default function Home() {
   
   useEffect(() => {
     loadPools()
-    document.title="My Pools"
+    document.title="All Pools"
   }, [])
-  async function releasefunds(id) {
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-    const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    const transaction = await marketContract.payoutpools(id,{
-      gasLimit: 3000000
-  })
-    await transaction.wait()
-    loadPools()
-  }
-
+ 
+  
   async function loadPools() {
     const web3Modal = new Web3Modal({
         network: "ropsten",
@@ -66,9 +54,8 @@ export default function Home() {
     }
     return Items
   }))
-
-  const owneritems=items.filter(i=>i.owner==creator)
-    setPools(owneritems)
+  
+    setPools(items)
     setLoadingState('loaded') 
   }
   
@@ -84,9 +71,7 @@ export default function Home() {
                 <p style={{ height: '40px' }} className="flex text-xl text-blue py-2 justify-center font-semibold"> Name: {pool.poolName}</p>
                 <p style={{ height: '40px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Pool Balance: &nbsp;<b> {pool.bal} Ξ</b> </p>
                 <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Projects: {pool.projectcount}  </p>
-                <div className="p-4 bg-black">
-                  <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => releasefunds(pool.poolID)}>Release</button>
-                </div>
+                <EthTipJar   acc={pool.address}/>
               </div>
              ))
               }

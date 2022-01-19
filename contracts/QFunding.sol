@@ -44,7 +44,9 @@
     {   
         require(poolsID<poolcount,"Pool does not exist");
         listedpools[poolsID].calandPayoutMatch();
+        require(poolcount==listedpools.length,"Pools are missing");
         listedpools[poolsID]=listedpools[poolcount-1]; //removing the pool from the list
         listedpools.pop();
+        poolcount--;
     }
 }

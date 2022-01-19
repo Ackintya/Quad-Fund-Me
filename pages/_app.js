@@ -28,7 +28,11 @@ function MyApp({ Component, pageProps }) {
               Create Pool
             </a>
           </Link>
-         
+          <Link href="/all-pool">
+            <a className="mr-6 text-pink-500">
+              All Pools
+            </a>
+          </Link>
         </div>
       </nav>
       <Component {...pageProps} />
