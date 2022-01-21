@@ -50,7 +50,7 @@ export default function Home() {
       bal:ethers.utils.formatEther(balance),
       projectcount:count.toString(),
       address:i,
-      poolID:poolid,     
+      poolID:poolid.toString(),     
     }
     return Items
   }))
