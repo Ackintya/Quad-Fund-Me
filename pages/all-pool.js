@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import Web3Modal from "web3modal"
-
+import EthTipJar from '../Components/sendtransaction'
 import{
   marketaddress, pooladdress
       }
