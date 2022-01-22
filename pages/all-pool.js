@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import Web3Modal from "web3modal"
-import EthTipJar from '../Components/sendtransaction'
+import EthTipJar from '../Components/contributePool'
 import{
   marketaddress, pooladdress
       }
@@ -71,7 +71,7 @@ export default function Home() {
                 <p style={{ height: '40px' }} className="flex text-xl text-blue py-2 justify-center font-semibold"> Name: {pool.poolName}</p>
                 <p style={{ height: '40px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Pool Balance: &nbsp;<b> {pool.bal} Ξ</b> </p>
                 <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Projects: {pool.projectcount}  </p>
-                <EthTipJar   acc={pool.address}/>
+                <EthTipJar  acc={pool.address}/>
               </div>
              ))
               }
