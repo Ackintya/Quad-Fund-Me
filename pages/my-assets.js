@@ -47,14 +47,13 @@ export default function Home() {
    
    const data=await marketContract.listPools()
    console.log(data)
-   const items = await Promise.all(data.map(async i => {
+   const items = await Promise.all(data.map(async (i,j) => {
       
       const poolContract= new ethers.Contract(i,Pool.abi,signer)
       const poolName=await poolContract.name()      
       const poolOwner=await poolContract.poolowner()
       const balance = await provider.getBalance(i);
       const count = await poolContract.projectcount()
-      const poolid=await poolContract.id()
       console.log(ethers.utils.formatEther(balance))
       const Items={
       poolName:poolName,
@@ -62,7 +61,7 @@ export default function Home() {
       bal:ethers.utils.formatEther(balance),
       projectcount:count.toString(),
       address:i,
-      poolID:poolid.toNumber(),     
+      poolID:j,     
     }
     return Items
   }))
