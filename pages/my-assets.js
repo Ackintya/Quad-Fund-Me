@@ -26,7 +26,7 @@ export default function Home() {
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    const transaction = await marketContract.payoutpools(id-1,{
+    const transaction = await marketContract.payoutpools(id,{
       gasLimit: 3000000
   })
     await transaction.wait()
@@ -54,7 +54,6 @@ export default function Home() {
       const poolOwner=await poolContract.poolowner()
       const balance = await provider.getBalance(i);
       const count = await poolContract.projectcount()
-      console.log(ethers.utils.formatEther(balance))
       const Items={
       poolName:poolName,
       owner:poolOwner,
@@ -79,7 +78,7 @@ export default function Home() {
           {
               pools.map((pool, i) => (
               <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Pool ID: {pool.poolID}  </p>
+                <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Pool ID: {pool.poolID+1}  </p>
                 <p style={{ height: '40px' }} className="flex text-xl text-blue py-2 justify-center font-semibold"> Name: {pool.poolName}</p>
                 <p style={{ height: '40px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Pool Balance: &nbsp;<b> {pool.bal} Ξ</b> </p>
                 <p style={{ height: '44px' }} className="flex text-l text-blue py-1 justify-center font-semibold">Projects: {pool.projectcount}  </p>
