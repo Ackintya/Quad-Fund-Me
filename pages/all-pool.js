@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Web3Modal from "web3modal"
 import EthTipJar from '../Components/contributePool'
 import{
-  marketaddress, pooladdress
+  marketaddress
       }
 from '../config'
 

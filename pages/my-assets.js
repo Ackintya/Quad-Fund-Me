@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react'
 import Web3Modal from "web3modal"
 
 import{
-  marketaddress, pooladdress
+  marketaddress
       }
 from '../config'
 
 import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
-import Project from '../artifacts/contracts/Project.sol/Project.json'
 import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
 
 export default function Home() {

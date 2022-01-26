@@ -86,7 +86,8 @@ export default function Home() {
     setPools(items)
     setLoadingState('loaded') 
   }
-
+  
+//replace chainid as 1337 when using locally
   if(chainid!=3) return(<h1 className="px-20 py-10 text-3xl">Change to Ropsten (reload)</h1>)
 
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)

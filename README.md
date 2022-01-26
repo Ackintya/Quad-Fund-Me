@@ -13,6 +13,9 @@ Pool.sol: It is the implementation of pool structure, which can have any number 
 
 Project.sol: It is the implementation of project structure. It has name,owner,image and description of the project 
 
+## Video Tutorial
+https://drive.google.com/file/d/1yKTz8VSsc4obnb5yJ9Ymn_j6-I9UEKtd/view?usp=sharing
+
 ## Directory structure
 
     .
@@ -62,8 +65,9 @@ Project.sol: It is the implementation of project structure. It has name,owner,im
    NOTE: please comment out Ropsten network block in `hardhat.config.js` before test.
 4. `npx hardhat node` to start the local test node
 5. `npx hardhat run scripts/deploy.ts --network localhost` to deploy the contract to the test network
-6. `npm start` to start React server populated at http://localhost:3000/
+6.  replace marketaddress in `config.js` with address obtained in step 5
+7. `npm start` to start React server populated at http://localhost:3000/
+8.  Replace chainid as 1337 in `pages/index.js`
 
 ## Final
-
 Thank you Consensys Team. Appreciate the quality content and teaching i experienced these few months, very much enjoyed it!

@@ -7,11 +7,10 @@ import Web3Modal from 'web3modal'
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import{
-  projectaddress, marketaddress, pooladdress
+   marketaddress
 } from '../config'
 
 import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
-import Project from '../artifacts/contracts/Project.sol/Project.json'
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
