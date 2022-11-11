@@ -71,6 +71,3 @@ https://drive.google.com/file/d/1yKTz8VSsc4obnb5yJ9Ymn_j6-I9UEKtd/view?usp=shari
 6.  replace marketaddress in `config.js` with address obtained in step 5
 7. `npm start` to start React server populated at http://localhost:3000/
 8.  Replace chainid as 1337 in `pages/index.js`
-
-## Final
-Thank you Consensys Team. Appreciate the quality content and teaching i experienced these few months, very much enjoyed it!
