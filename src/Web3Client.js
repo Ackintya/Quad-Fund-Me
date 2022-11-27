@@ -24,7 +24,7 @@ export const init = async() => {
             console.log(`Selected account changed to ${selectedAccount}`);
           });
           }
-          const providerUrl = "https://ropsten.infura.io/v3/930bd58ef1d0469dbf105654e921eacb";
+          const providerUrl = "https://sepolia.infura.io/v3/cdb43937d50545f8a929fca4f496bfd3";
           const web3 = new Web3(providerUrl);
       
           const networkId = await web3.eth.net.getId();

@@ -65,7 +65,7 @@ https://drive.google.com/file/d/1yKTz8VSsc4obnb5yJ9Ymn_j6-I9UEKtd/view?usp=shari
 1. Clone from `https://github.com/ackintya/blockchain-developer-bootcamp-final-project.git`
 2. `npm install` to install all dependencies
 3. `npx hardhat test` to perform unit tests
-   NOTE: please comment out Ropsten network block in `hardhat.config.js` before test.
+   NOTE: please comment out Sepolia network block in `hardhat.config.js` before test.
 4. `npx hardhat node` to start the local test node
 5. `npx hardhat run scripts/deploy.ts --network localhost` to deploy the contract to the test network
 6.  replace marketaddress in `config.js` with address obtained in step 5

@@ -34,7 +34,7 @@ export default function Home() {
 
   async function loadPools() {
     const web3Modal = new Web3Modal({
-        network: "ropsten",
+        network: "sepolia",
         cacheProvider: true,
       })
       const connection = await web3Modal.connect()

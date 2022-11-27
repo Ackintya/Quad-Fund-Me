@@ -1,2 +1,2 @@
-deployed_address="0x8803a07EE25a5C4005358c1f986D3c07947CaD26"
-network="ropsten"
+deployed_address="0x6bEdE5257b56857D799A32F52AE01312552Ea319"
+network="sepolia"
