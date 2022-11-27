@@ -19,7 +19,7 @@ async function main() {
   const market = await Qfund.deploy();
   await market.deployed();
   //await market.createPool("water",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("10")});
-  await market.createPool("Healthcare",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("5")});
+  await market.createPool("Healthcare",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.5")});
   await market.createPool("Metaverse",'0xFABB0ac9d68B0B445fB7357272Ff202C5651694a',{value:ethers.utils.parseEther("0.6")});
   const pools=await market.listPools();
   console.log(pools[0]);
