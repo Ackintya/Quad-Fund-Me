@@ -1,6 +1,11 @@
 {
   "name": "quadfundme",
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,11 +20,10 @@
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.1",
     "@usedapp/core": "^0.6.3",
-    "axios": "^0.24.0",
     "chai": "^4.3.4",
-    "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.1",
+    "fs": "^0.0.1-security",
     "hardhat": "^2.6.8",
     "ipfs-http-client": "^54.0.1",
     "next": "12.0.4",
@@ -33,6 +37,7 @@
     "@types/mocha": "^9.0.0",
     "@types/react": "^17.0.36",
     "autoprefixer": "^10.4.0",
+    "dotenv": "^16.0.3",
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "^8.3.0",

@@ -1,15 +1,13 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import Modal from './useModal'
-import{
-  marketaddress
-      }
-from '../config'
+import{marketaddress}from '../config'
 import Web3Modal from "web3modal"
-
 import Project from '../artifacts/contracts/Project.sol/Project.json'
 import Pool from '../artifacts/contracts/Pool.sol/Pool.json'
 import Qfunding from "../artifacts/contracts/Qfunding.sol/Qfunding.json"
+// import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+// dotenv.config()
 
 export default function Home() {
   
@@ -30,6 +28,7 @@ export default function Home() {
   useEffect(() => {
     loadPools()
     document.title="Menu"
+    
   }, [])
 
  
@@ -40,7 +39,7 @@ export default function Home() {
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const marketContract = new ethers.Contract(marketaddress, Qfunding.abi, signer)
-    setChainid(window.ethereum.networkVersion || 3);
+    setChainid(window.ethereum.networkVersion || 11155111);
     console.log(chainid)
     console.log(marketaddress)
 
@@ -92,38 +91,38 @@ export default function Home() {
 
   if (loadingState === 'loaded' && !pools.length) return (<h1 className="px-20 py-10 text-3xl">No items in this round</h1>)
   return (
-    <div className="flex justify-center">
-      <div className="p-5" style={{ maxWidth: '1600px' }}>
-        <div className="pb-14">
+      <div className="p-15 mx-auto">
+        <div className="pb-14 py-3 space-y-5 ">
           {      
                 pools.map((pool, i) => (
-                <div className="flex border shadow-2xl justify-center rounded-2xl" >
-                <p className="flex text-2xl items-center justify-center bg-gray-500 text-white font-semibold py-5 ">{pool.poolName}
-                </p>
-
-                <div key={i} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
+                <div className="mx-6 shadow-2xl bg-white justify-center rounded-2xl flow-root" >
+                <div className="pb-5">
+                <h1 className="truncate flex justify-center text-3xl bg-yellow-600 text-white font-semibold p-5 px-5 rounded-md">{pool.poolName}
+                </h1>
+                </div>
+                <div key={i} className="grid mx-3 rounded-2xl space-x-2 flex-row grid-flow-col grid-cols-5 gap-4 p-5">
                 {pool.projects.map((projs,j)=>(
-                <div key={j} className="border shadow-2xl items-center justify-center rounded-xl">
-                <img className=" justify-center" style={{height:'210px'}}  src={projs.image} />
-                <p style={{ height: '40px' }} className="flex justify-center pt-1 text-xl font-semibold">{projs.name}</p>
+                <div key={j} className=" shadow-xl border-2 hover:text-indigo-400 rounded-xl">
+                <img className="mx-auto h-60 md:h-40" src={projs.image} />
+                <p className="flex justify-center pt-3 text-2xl font-semibold">{projs.name}</p>
                 <div className="p-4">
-                  <div style={{ height: '70px', overflow: 'hidden' }}>
-                    <p className="text-gray-400">{projs.description}</p>
+                  <div>
+                    <p className="text-gray-400 truncate flex">{projs.description}</p>
                     </div>
                 </div>
-                <div className="p-4 bg-black text-white">
-                <p style={{ height: '40px' }} className="flex text-l justify-center bg-black text-white font-semibold"> Funds Collected: {projs.balance}</p>
+                <div className="p-2 rounded-xl bg-black text-white ">
+                <p className="text-xl p-3 flex-auto bg-black text-white font-semibold"> Funds Collected: {projs.balance}</p>
                 <Modal className="justify-center" project={projs} />
                 </div>
                 </div>
              ))
                 }
             </div>
+            <p className="border float-right truncate text-2xl bg-blue-400 text-white p-2 px-5 rounded-tl-md" >Pool Id:{pool.id}</p>
             </div>
               ))
                 }
         </div>
       </div>
-    </div>
   )
 }

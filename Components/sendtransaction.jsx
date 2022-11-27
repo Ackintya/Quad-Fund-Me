@@ -42,7 +42,9 @@ export default function EthTipJar(props) {
       from: accounts[0],
       value:  web3.utils.toHex(wei)
   });
+
   await web3.eth.getTransactionReceipt(transaction.transactionHash);
+
    /* if (accounts.length > 0) {
       window.ethereum.request({
         method: "eth_sendTransaction",
@@ -54,6 +56,7 @@ export default function EthTipJar(props) {
       })
     }
     */
+
     console.log(ethAmount)
   }
 

@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
-import { ethers } from 'ethers'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import Web3Modal from "web3modal"
 
 ReactDOM.render(
   <React.StrictMode>

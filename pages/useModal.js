@@ -4,10 +4,15 @@ import EthTipJar from "../Components/sendtransaction"
 
 export default function Modal(props) {
   const [showModal, setShowModal] = React.useState(false);
+  function closeandReload(e)
+{
+  setShowModal(false);
+  window.location.reload();
+}
   return (
     <>
         <button
-        className="bg-pink-500 justify-center text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="bg-pink-500 flex items-center justify-center text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -37,7 +42,7 @@ export default function Modal(props) {
                 {/*body*/}
                 <div className="relative p-6 flex-auto flow-root">
                
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed float-right text-black justify-right">
+                  <p className="my-4 text-blueGray-500 text-lg  leading-relaxed float-right text-black justify-right">
                   <img  className="w-52 h-52 rounded-full float-left pr-3" src={props.project.image} />
                   {props.project.description}
                   </p>
@@ -48,7 +53,7 @@ export default function Modal(props) {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={(e) => closeandReload(e)}
                   >
                     Close
                   </button>

@@ -1,17 +1,15 @@
 import "@nomiclabs/hardhat-waffle";
-require('dotenv').config
-import fs from 'fs';
 
-const privateKey = 'ca55c3449680f66adf0eb35080a4cd3f292f858251cc4bbd5ab72671a93bd374'
+const privateKey = 'cbdee3085303b7bfd1b98d13685a8bd8ef877048a7c0c2df6f01e07c1ca4c21e'
 
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
-      chainId: 3
+      chainId: 11155111
     },
-    ropsten: {
-      url: "https://ropsten.infura.io/v3/930bd58ef1d0469dbf105654e921eacb",//+ process.env.infura_key,
+    sepolia: {
+      url: "https://sepolia.infura.io/v3/cdb43937d50545f8a929fca4f496bfd3",
       accounts: [privateKey],
       gas: 2100000,
         gasPrice: 8000000000,
